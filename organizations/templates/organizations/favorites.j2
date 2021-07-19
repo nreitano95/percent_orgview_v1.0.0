@@ -1,0 +1,21 @@
+{% extends 'organizations/base.j2' %}
+
+{% block title %}
+    Favorite Organizations
+{% endblock %}
+
+{% block content %}
+
+    <h1>Favorite Organizations</h1>
+
+    {# {% if favorite list is empty %} #}
+    <div class="container">
+        <div class="favorites">
+            <h4>No saved favorite organizations</h4>
+            <a>To add a favorite organization, visit an organization page and click the "Save to Favorites Button".</a>
+        </div> 
+
+    </div>
+    {# {% endif %} #}
+
+{% endblock %}

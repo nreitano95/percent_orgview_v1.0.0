@@ -74,4 +74,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 def about(request):
     return render(request, 'organizations/about.j2', {'title': 'About'})
 
+def favorites(request):
+    return render(request, 'organizations/favorites.j2', {'title': 'Favorites'})
 
