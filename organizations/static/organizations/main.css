@@ -16,6 +16,10 @@ ul {
   background-color: #fff;
 }
 
+a, a:link, a:hover, a:active {
+  color:#59a133 ;
+}
+
 .site-header .navbar-brand {
   color: rgb(0, 0, 0);
 }
@@ -54,6 +58,12 @@ ul {
     box-shadow: 0 0 0 0.2rem rgba(116, 201, 71, 0.25) !important;
   }
 }
+
+#state:active, #state:focus, #category:active, #category:focus {
+  border: 0px;
+  box-shadow: 0 0 0 0.2rem rgba(116, 201, 71, 0.25) !important;
+}
+
 
 .btn-primary, .btn-primary:active{
   background-color: #74c947;
@@ -102,14 +112,3 @@ ul {
   margin-top: 50px;
 }
 
-.table-view th {
-  width: 500px;
-}
-
-.table-view th.name {
-  width: 1500px;
-}
-
-.table-view th.id {
-  width: 200px;
-}
