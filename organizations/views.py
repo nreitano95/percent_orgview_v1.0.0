@@ -4,7 +4,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.models import User
 from .models import Post
 import requests
-import json 
+import json
+from django.core.paginator import Paginator 
 
 apikey = "a0b3f0195e1ded52ac937673dd45e95a"
 
@@ -94,6 +95,7 @@ def favorites(request):
     return render(request, 'organizations/favorites.j2', {'title': 'Favorites'})
 
 def results(request):
+
     return render(request, 'organizations/results.j2')
 
 def urlify(url):
