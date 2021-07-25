@@ -1,0 +1,22 @@
+{% extends "organizations/base.j2" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block content %}
+  {# Search Bar #}
+  <form method="POST" class="search-bar">
+  {% csrf_token %}
+
+    <div class="form-group">
+      <label for="submitSearch">Search for Any Organization</label>
+      <input class="form-control" type="text" placeholder="Search for Organization..." id="name" name="name" value="{{ name }}">
+    </div>
+
+    <input class="btn btn-primary" type="submit" value='Submit'>
+    <a href="{% url 'organizations-home' %}" class="btn btn-light">Cancel</a><br>
+
+  </form>
+
+{% endblock content %}

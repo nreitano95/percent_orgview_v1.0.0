@@ -1,0 +1,23 @@
+{% extends "organizations/base.j2" %}
+
+{% block title %}
+    Organzation Page
+{% endblock %}
+
+{% block content %}
+
+{% for org in organization %}
+<h1>{{org.charityName}}</h1>
+
+{% if org.missionStatement %}
+<p><strong>Mission Statement:</strong> {{org.missionStatement}}</p>
+{% endif %}
+<p><strong>City:</strong> {{org.city}}</p>
+<p><strong>State:</strong> {{org.state}}</p>
+<p><strong>Zip Code:</strong> {{org.zipCode}}</p>
+<p><strong>Category:</strong> {{org.category}}</p>
+<p><strong>Tax Employee Identification Number:</strong> {{org.ein}}</p>
+<p><a href="{{org.donationUrl}}">Click Here to Donate (External Link)</a></p>
+{% endfor %}
+
+{% endblock content %}

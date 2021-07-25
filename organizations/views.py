@@ -3,12 +3,68 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from .models import Post
+import requests
 
+apikey = "a0b3f0195e1ded52ac937673dd45e95a"
 
 def home(request):
+    # Search Handler
+    if request.method == 'POST':
+        searchTerm = request.POST.get('searchTerm')
+        searchTerm = urlify(searchTerm)
+        response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + apikey + "&searchTerm=" + searchTerm)
 
-    return render(request, 'organizations/home.j2', )
+        data = response.json()
+        return render(request, 'organizations/results.j2', {'organizations': data['data']})
+    return render(request, 'organizations/home.j2')
 
+def search(request):
+
+    categoriesList = requests.get("http://data.orghunter.com/v1/categories?user_key=" + apikey)
+    categories = categoriesList.json()
+
+    # Search Handler
+    if request.method == 'POST':
+        
+        searchTerm = request.POST.get('searchTerm')
+        searchTerm = urlify(searchTerm)
+        category = request.POST.get('category')
+        city = request.POST.get('city')
+        city = urlify(city)
+        state = request.POST.get('state')
+
+        url = "http://data.orghunter.com/v1/charitysearch?user_key=" + apikey
+
+        if searchTerm:
+            url += "&searchTerm=" + searchTerm
+
+        if category:
+            url += "&category=" + category
+        
+        if city:
+            url += "&city=" + city
+
+        if state:
+            url += "&state=" + state
+        
+        print(url)
+        response = requests.get(url)
+
+        data = response.json()
+        return render(request, 'organizations/results.j2', {'organizations': data['data']})
+
+    return render(request, 'organizations/search.j2', {'categories': categories['data']})
+
+
+
+def organization(request, ein):
+    url = "http://data.orghunter.com/v1/charitysearch?user_key=a0b3f0195e1ded52ac937673dd45e95a&ein=" + ein
+
+    response = requests.get(url)
+
+    organization = response.json()
+
+    return render(request, 'organizations/organization-page.j2', {'organization': organization['data']})
 
 class PostListView(ListView):
     model = Post
@@ -77,3 +133,9 @@ def about(request):
 def favorites(request):
     return render(request, 'organizations/favorites.j2', {'title': 'Favorites'})
 
+def results(request):
+    return render(request, 'organizations/results.j2')
+
+def urlify(url):
+    urlLength = len(url)
+    return url[:urlLength].replace(' ', '%20')

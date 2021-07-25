@@ -101,3 +101,15 @@ ul {
   text-align: center;
   margin-top: 50px;
 }
+
+.table-view th {
+  width: 500px;
+}
+
+.table-view th.name {
+  width: 1500px;
+}
+
+.table-view th.id {
+  width: 200px;
+}

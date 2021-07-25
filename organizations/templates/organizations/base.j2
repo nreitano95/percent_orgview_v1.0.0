@@ -27,6 +27,8 @@
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{% url 'organizations-home' %}">Home</a>
               <a class="nav-item nav-link" href="{% url 'organizations-about' %}">About</a>
+              <a class="nav-item nav-link" href="{% url 'organizations-search' %}">Search</a>
+
             </div>
             <div class="navbar-nav">
               {% if user.is_authenticated %}

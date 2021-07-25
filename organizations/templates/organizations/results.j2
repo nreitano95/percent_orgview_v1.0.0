@@ -1,0 +1,54 @@
+{% extends "organizations/base.j2" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block content %}
+
+<h3>Search Results</h3>
+
+{# If No Results Found: #}
+{% if not organizations %}
+  <div class='search-results'>
+    <h3>No Results Found</h3>
+    <p>Try searching again or using an Advanced Search</p>
+  </div>
+
+{% else %}
+
+{# Display search results #}
+
+
+<table class='table-view'>
+<thead>
+  <tr>
+    <th class='id'>EIN</th>
+    <th class='name'>Organization Name</th>
+    <th>Category</th>
+    <th>City</th>
+    <th>State</th>
+    <th>ZipCode</th>
+</thead>
+<tbody>
+{% for org in organizations %}
+  <tr>
+    <td>{{ org.ein }}</td>
+    <td><a href="{% url 'organizations-organization' ein=org.ein %}"><p>{{org.charityName}}</p></a></td>
+    <td>{{ org.category }}</td>
+    <td>{{ org.city }}</td>
+    <td>{{ org.state }}</td>
+    <td>{{ org.zipCode }}</td>
+  </tr>
+{% endfor %}
+</tbody>
+</table>
+    <br>
+    <br>
+    <br>
+
+    <a href="#top">Return to Top</a>
+
+{% endif %}
+
+{% endblock content %}
