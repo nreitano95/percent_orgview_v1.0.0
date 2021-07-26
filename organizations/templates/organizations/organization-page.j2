@@ -1,7 +1,9 @@
 {% extends "organizations/base.j2" %}
 
 {% block title %}
+{% for org in organization %}
     {{ org.charityName }}
+{% endfor %}
 {% endblock %}
 
 {% block content %}
@@ -19,6 +21,10 @@
     <p><strong>Category:</strong> {{org.category}}</p>
     <p><strong>Tax Employee Identification Number:</strong> {{org.ein}}</p>
     <p><a href="{{org.donationUrl}}">Click Here to Donate (External Link)</a></p>
+
+
+    <p><a href="{% url 'organizations-newFavorite' ein=org.ein %}">Add to Favorites</a></p>
+
     
 {% endfor %}
 

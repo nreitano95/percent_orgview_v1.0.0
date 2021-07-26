@@ -8,14 +8,48 @@
 
     <h1>Favorite Organizations</h1>
 
-    {# {% if favorite list is empty %} #}
-    <div class="container">
-        <div class="favorites">
-            <h4>No saved favorite organizations</h4>
-            <a>To add a favorite organization, visit an organization page and click the "Save to Favorites Button".</a>
-        </div> 
 
-    </div>
-    {# {% endif %} #}
+    {% if not favorites %}
+        <div class="container">
+            <div class="favorites">
+                <h4>No saved favorite organizations</h4>
+                <a>To add a favorite organization, visit an organization page and click the "Save to Favorites Button".</a>
+            </div> 
+
+        </div>
+    {% else %}
+
+        <table class='table'>
+        <thead>
+        <tr>
+            <th scope='col'>Organization Name</th>
+            <th scope='col'>Category</th>
+            <th scope='col'>City</th>
+            <th scope='col'>State</th>
+            <th scope='col'>Zip Code</th>
+            <th scope='col'>EIN</th>
+            <th scope='col'>Delete</th>
+        </thead>
+        <tbody>
+        {% for org in favorites %}
+        <tr>
+            
+            <td><a href="{% url 'organizations-organization' ein=org.ein %}"><p>{{org.charityName}}</p></a></td>
+            <td>{{ org.category }}</td>
+            <td>{{ org.city }}</td>
+            <td>{{ org.state }}</td>
+            <td>{{ org.zipCode }}</td><td>{{ org.ein }}</td>
+            <td><a href="{% url 'organizations-deleteFavorite' ein=org.ein %}" class="btn btn-primary">Delete</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+            <br>
+            <br>
+            <br>
+
+            <a class="return-to-top" href="#top">Return to Top</a>
+            
+    {% endif %}
 
 {% endblock %}

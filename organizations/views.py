@@ -1,10 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
-from .models import Post
+from .models import Favorites2
 import requests
+from django.contrib import messages
 import json
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator 
 
 apikey = "a0b3f0195e1ded52ac937673dd45e95a"
@@ -91,8 +93,52 @@ def organization(request, ein):
 def about(request):
     return render(request, 'organizations/about.j2', {'title': 'About'})
 
+@login_required
+def newFavorite(request, ein):
+    try: 
+        ukey = ein + request.user.username
+        print(ukey)
+        newFavorite = Favorites2(ukey=ukey, ein=ein, user=request.user.username)
+        newFavorite.save()
+        messages.success(request, f'Organization Added to Favorites!')
+        return redirect('organizations-organization', ein=ein)
+    except: 
+        messages.warning(request, f'Organization already added to favorites')
+        return redirect('organizations-organization', ein=ein)
+
+
+@login_required
+def deleteFavorite(request, ein):
+    try: 
+        ukey = ein + request.user.username
+        Favorites2.objects.get(ukey=ukey).delete()
+
+
+        messages.success(request, f'Organization Deleted from Favorites')
+        return redirect('organizations-favorites')
+    except: 
+        messages.warning(request, f'Something went wrong...')
+        return redirect('organizations-favorites')
+
+
+
+
+@login_required
 def favorites(request):
-    return render(request, 'organizations/favorites.j2', {'title': 'Favorites'})
+
+    favorites = Favorites2.objects.filter(user=request.user.username)
+    # favorites_list = []
+
+    # for org in range(0,len(favorites)):
+    #     ein = favorites[org].ein
+    #     response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + apikey + "&ein=" + ein)
+
+    #     data = response.json()
+    #     favorites_list.append(data['data'])
+    #     print(favorites_list)
+    #     return render(request, 'organizations/favorites.j2', {'favorites': favorites_list})
+    
+    return render(request, 'organizations/favorites.j2', {'favorites': favorites})
 
 def results(request):
 
