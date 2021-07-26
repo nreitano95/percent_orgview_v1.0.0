@@ -97,13 +97,19 @@ def about(request):
 def newFavorite(request, ein):
     try: 
         ukey = ein + request.user.username
-        print(ukey)
+
+        dup_check = Favorites2.objects.filter(ukey=ukey)
+        
+        if dup_check: 
+            messages.warning(request, f'Organization already added to favorites')
+            return redirect('organizations-organization', ein=ein)
+        
         newFavorite = Favorites2(ukey=ukey, ein=ein, user=request.user.username)
         newFavorite.save()
         messages.success(request, f'Organization Added to Favorites!')
         return redirect('organizations-organization', ein=ein)
     except: 
-        messages.warning(request, f'Organization already added to favorites')
+        messages.warning(request, f'Something went wrong')
         return redirect('organizations-organization', ein=ein)
 
 
