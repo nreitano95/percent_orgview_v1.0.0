@@ -67,6 +67,7 @@ a, a:link, a:hover, a:active {
 
 .btn-primary, .btn-primary:active{
   background-color: #74c947;
+  color: white !important;
   border: 0px;
   border-radius: 34px;
   width: 150px;
