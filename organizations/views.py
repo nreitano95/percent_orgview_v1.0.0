@@ -8,8 +8,11 @@ from django.contrib import messages
 import json
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator 
+import os 
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
-apikey = "a0b3f0195e1ded52ac937673dd45e95a"
+apikey = os.environ.get('ORG_HUNTER_API_KEY')
 
 def home(request):
     # Search Handler
