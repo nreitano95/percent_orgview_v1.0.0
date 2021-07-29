@@ -31,16 +31,17 @@
             <th scope='col'>Delete</th>
         </thead>
         <tbody>
-        {% for org in favorites %}
-        <tr>
-            
-            <td><a href="{% url 'organizations-organization' ein=org.ein %}"><p>{{org.charityName}}</p></a></td>
-            <td>{{ org.category }}</td>
-            <td>{{ org.city }}</td>
-            <td>{{ org.state }}</td>
-            <td>{{ org.zipCode }}</td><td>{{ org.ein }}</td>
-            <td><a href="{% url 'organizations-deleteFavorite' ein=org.ein %}" class="btn btn-primary">Delete</a></td>
-        </tr>
+        {% for favorite in favorites %}
+            {% for org in favorite %}
+                <tr>
+                    <td><a href="{% url 'organizations-organization' ein=org.ein %}"><p>{{org.charityName}}</p></a></td>
+                    <td>{{ org.category }}</td>
+                    <td>{{ org.city }}</td>
+                    <td>{{ org.state }}</td>
+                    <td>{{ org.zipCode }}</td><td>{{ org.ein }}</td>
+                    <td><a href="{% url 'organizations-deleteFavorite' ein=org.ein %}" class="btn btn-primary">Delete</a></td>
+                </tr>
+            {% endfor %}
         {% endfor %}
         </tbody>
         </table>

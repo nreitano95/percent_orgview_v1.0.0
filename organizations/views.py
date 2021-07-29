@@ -134,19 +134,16 @@ def deleteFavorite(request, ein):
 def favorites(request):
 
     favorites = Favorites2.objects.filter(user=request.user.username)
-    # favorites_list = []
+    favorites_list = []
 
-    # for org in range(0,len(favorites)):
-    #     ein = favorites[org].ein
-    #     response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + apikey + "&ein=" + ein)
+    for org in range(len(favorites)):
+        ein = favorites[org].ein
+        response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + apikey + "&ein=" + ein)
+        data = response.json()
+        favorites_list.append(data['data'])
 
-    #     data = response.json()
-    #     favorites_list.append(data['data'])
-    #     print(favorites_list)
-    #     return render(request, 'organizations/favorites.j2', {'favorites': favorites_list})
+    return render(request, 'organizations/favorites.j2', {'favorites': favorites_list})
     
-    return render(request, 'organizations/favorites.j2', {'favorites': favorites})
-
 def results(request):
 
     return render(request, 'organizations/results.j2')
