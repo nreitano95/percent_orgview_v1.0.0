@@ -20,36 +20,34 @@
     {% else %}
 
         <table class='table'>
-        <thead>
-        <tr>
-            <th scope='col'>Organization Name</th>
-            <th scope='col'>Category</th>
-            <th scope='col'>City</th>
-            <th scope='col'>State</th>
-            <th scope='col'>Zip Code</th>
-            <th scope='col'>EIN</th>
-            <th scope='col'>Delete</th>
-        </thead>
-        <tbody>
-        {% for favorite in favorites %}
-            {% for org in favorite %}
+            <thead>
                 <tr>
-                    <td><a href="{% url 'organizations-organization' ein=org.ein %}"><p>{{org.charityName}}</p></a></td>
-                    <td>{{ org.category }}</td>
-                    <td>{{ org.city }}</td>
-                    <td>{{ org.state }}</td>
-                    <td>{{ org.zipCode }}</td><td>{{ org.ein }}</td>
-                    <td><a href="{% url 'organizations-deleteFavorite' ein=org.ein %}" class="btn btn-primary">Delete</a></td>
+                    <th scope='col'>Organization Name</th>
+                    <th scope='col'>Category</th>
+                    <th scope='col'>City</th>
+                    <th scope='col'>State</th>
+                    <th scope='col'>Zip Code</th>
+                    <th scope='col'>EIN</th>
+                    <th scope='col'>Delete</th>
                 </tr>
+            </thead>
+            <tbody>
+            {% for favorite in favorites %}
+                {% for org in favorite %}
+                    <tr>
+                        <td><a href="{% url 'organizations-organization' ein=org.ein %}"><p>{{org.charityName}}</p></a></td>
+                        <td>{{ org.category }}</td>
+                        <td>{{ org.city }}</td>
+                        <td>{{ org.state }}</td>
+                        <td>{{ org.zipCode }}</td><td>{{ org.ein }}</td>
+                        <td><a href="{% url 'organizations-deleteFavorite' ein=org.ein %}" class="btn btn-primary">Delete</a></td>
+                    </tr>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
-        </tbody>
+            </tbody>
         </table>
             <br>
             <br>
-            <br>
-
-            <a class="return-to-top" href="#top">Return to Top</a>
             
     {% endif %}
 

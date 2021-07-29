@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Favorites2
+from .models import User_Favorites
 
-admin.site.register(Favorites2)
+admin.site.register(User_Favorites)

@@ -29,7 +29,6 @@ urlpatterns = [
     path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name="users/password_reset_done.j2"), name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="users/password_reset_confirm.j2"), name='password_reset_confirm'),
     path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name="users/password_reset_complete.j2"), name='password_reset_complete'),
-
     path('profile/', user_views.profile, name='profile'),
     path('', include('organizations.urls')),
 ]

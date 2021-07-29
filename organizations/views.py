@@ -1,26 +1,24 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.models import User
-from .models import Favorites2
-import requests
-from django.contrib import messages
-import json
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib import messages
 from django.core.paginator import Paginator 
+from .models import User_Favorites
+import requests
+import json
 import os 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
-apikey = os.environ.get('ORG_HUNTER_API_KEY')
+ORG_HUNTER_API_KEY = os.environ.get('ORG_HUNTER_API_KEY')
 
 def home(request):
     # Search Handler
     if request.method == 'POST':
         searchTerm = request.POST.get('searchTerm')
         searchTerm = urlify(searchTerm)
-        response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + apikey + "&searchTerm=" + searchTerm)
-
+        response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + ORG_HUNTER_API_KEY + "&searchTerm=" + searchTerm)
         data = response.json()
         return render(request, 'organizations/results.j2', {'organizations': data['data']})
     return render(request, 'organizations/home.j2')
@@ -28,12 +26,11 @@ def home(request):
 def search(request):
 
     # Get dynamically populated list of categories 
-    categoriesList = requests.get("http://data.orghunter.com/v1/categories?user_key=" + apikey)
+    categoriesList = requests.get("http://data.orghunter.com/v1/categories?user_key=" + ORG_HUNTER_API_KEY)
     categories = categoriesList.json()
 
     # Search Handler
     if request.method == 'POST':
-        
         searchTerm = request.POST.get('searchTerm')
         searchTerm = urlify(searchTerm)
         category = request.POST.get('category')
@@ -41,7 +38,7 @@ def search(request):
         city = urlify(city)
         state = request.POST.get('state')
 
-        url = "http://data.orghunter.com/v1/charitysearch?user_key=" + apikey
+        url = "http://data.orghunter.com/v1/charitysearch?user_key=" + ORG_HUNTER_API_KEY
 
         if searchTerm:
             url += "&searchTerm=" + searchTerm
@@ -56,32 +53,11 @@ def search(request):
             url += "&state=" + state
         
         response = requests.get(url)
-
         data = response.json()
-
-
-        # images = []
-        # for org in range(0,len(data['data'])):
-        #     charityName = data['data'][org].get('charityName')
-        #     imageURL = "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI"
-
-        #     querystring = {"q":charityName,"pageNumber":"1","pageSize":"1","autoCorrect":"true"}
-
-        #     headers = {
-        #         'x-rapidapi-key': "fc64577d49msh1e5935a829664a3p122e80jsn6f36a130b92e",
-        #         'x-rapidapi-host': "contextualwebsearch-websearch-v1.p.rapidapi.com"
-        #         }
-
-        #     imageResponse = requests.request("GET", imageURL, headers=headers, params=querystring)
-
-        #     print(imageResponse.text)
-
-
 
         return render(request, 'organizations/results.j2', {'organizations': data['data']})
 
     return render(request, 'organizations/search.j2', {'categories': categories['data']})
-
 
 
 def organization(request, ein):
@@ -102,14 +78,12 @@ def about(request):
 def newFavorite(request, ein):
     try: 
         ukey = ein + request.user.username
-
-        dup_check = Favorites2.objects.filter(ukey=ukey)
-        
+        dup_check = User_Favorites.objects.filter(ukey=ukey)
         if dup_check: 
             messages.warning(request, f'Organization already added to favorites')
             return redirect('organizations-organization', ein=ein)
         
-        newFavorite = Favorites2(ukey=ukey, ein=ein, user=request.user.username)
+        newFavorite = User_Favorites(ukey=ukey, ein=ein, user=request.user.username)
         newFavorite.save()
         messages.success(request, f'Organization Added to Favorites!')
         return redirect('organizations-organization', ein=ein)
@@ -122,8 +96,7 @@ def newFavorite(request, ein):
 def deleteFavorite(request, ein):
     try: 
         ukey = ein + request.user.username
-        Favorites2.objects.get(ukey=ukey).delete()
-
+        User_Favorites.objects.get(ukey=ukey).delete()
         messages.success(request, f'Organization Deleted from Favorites')
         return redirect('organizations-favorites')
     except: 
@@ -131,25 +104,24 @@ def deleteFavorite(request, ein):
         return redirect('organizations-favorites')
 
 
-
-
 @login_required
 def favorites(request):
 
-    favorites = Favorites2.objects.filter(user=request.user.username)
+    favorites = User_Favorites.objects.filter(user=request.user.username)
     favorites_list = []
 
     for org in range(len(favorites)):
         ein = favorites[org].ein
-        response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + apikey + "&ein=" + ein)
+        response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + ORG_HUNTER_API_KEY + "&ein=" + ein)
         data = response.json()
         favorites_list.append(data['data'])
 
     return render(request, 'organizations/favorites.j2', {'favorites': favorites_list})
     
-def results(request):
 
+def results(request):
     return render(request, 'organizations/results.j2')
+
 
 def urlify(url):
     urlLength = len(url)
