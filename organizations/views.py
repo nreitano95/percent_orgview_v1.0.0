@@ -24,6 +24,7 @@ def home(request):
 
 def search(request):
 
+    # Get dynamically populated list of categories 
     categoriesList = requests.get("http://data.orghunter.com/v1/categories?user_key=" + apikey)
     categories = categoriesList.json()
 
@@ -93,6 +94,7 @@ def organization(request, ein):
 def about(request):
     return render(request, 'organizations/about.j2', {'title': 'About'})
 
+
 @login_required
 def newFavorite(request, ein):
     try: 
@@ -118,7 +120,6 @@ def deleteFavorite(request, ein):
     try: 
         ukey = ein + request.user.username
         Favorites2.objects.get(ukey=ukey).delete()
-
 
         messages.success(request, f'Organization Deleted from Favorites')
         return redirect('organizations-favorites')
