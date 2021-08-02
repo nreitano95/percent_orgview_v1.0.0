@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 def register(request):
+    """ Creates a user with data from the register form """
 
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
@@ -19,7 +20,9 @@ def register(request):
 
 @login_required
 def profile(request):
+    """ Update the user's profile """
 
+    # Get the user's data from the form
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -34,6 +37,7 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    # Set the context for the crispy forms
     context = {
         'u_form': u_form,
         'p_form': p_form

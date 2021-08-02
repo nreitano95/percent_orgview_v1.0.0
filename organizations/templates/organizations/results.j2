@@ -20,36 +20,33 @@
 {# Display search results #}
 
 <table class='table'>
-<thead>
-  <tr>
-    <th scope='col'>Organization Name</th>
-    <th scope='col'>Category</th>
-    <th scope='col'>City</th>
-    <th scope='col'>State</th>
-    <th scope='col'>Zip Code</th>
-    <th scope='col'>EIN</th>
-</thead>
-<tbody>
-{% for org in organizations %}
-  <tr>
-    
-    <td><a href="{% url 'organizations-organization' ein=org.ein %}"><p>{{org.charityName}}</p></a></td>
-    <td>{{ org.category }}</td>
-    <td>{{ org.city }}</td>
-    <td>{{ org.state }}</td>
-    <td>{{ org.zipCode }}</td>
-    <td>{{ org.ein }}</td>
-  </tr>
-{% endfor %}
-
-</tbody>
+  <thead>
+    <tr>
+      <th scope='col'>Organization Name</th>
+      <th scope='col'>Category</th>
+      <th scope='col'>City</th>
+      <th scope='col'>State</th>
+      <th scope='col'>Zip Code</th>
+      <th scope='col'>EIN</th>
+  </thead>
+  <tbody>
+  {% for org in organizations %}
+    <tr>
+      <td><a href="{% url 'organizations-organization' ein=org.ein %}"><p>{{org.charityName}}</p></a></td>
+      <td>{{ org.category }}</td>
+      <td>{{ org.city }}</td>
+      <td>{{ org.state }}</td>
+      <td>{{ org.zipCode }}</td>
+      <td>{{ org.ein }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
 </table>
     <br>
     <br>
     <a class="btn btn-primary" href="#top">Return to Top</a>
     <br>
     <br>
-
 {% endif %}
 
 {% endblock content %}
