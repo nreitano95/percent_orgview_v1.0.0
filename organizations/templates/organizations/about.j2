@@ -6,52 +6,47 @@
 
 {% block content %}
 
-
-
-
-<div class="bg-light">
-    <div class="container py-5">
-        <div class="row h-100 align-items-center py-5">
-            <div class="col-lg-6">
-                <h1 class="display-4">About Percent</h1>
-                <p class="lead text-muted mb-0">We make giving simple.</p>
+    <div class="bg-light">
+        <div class="container py-5">
+            <div class="row h-100 align-items-center py-5">
+                <div class="col-lg-6">
+                    <h1 class="display-4">About Percent</h1>
+                    <p class="lead text-muted mb-0">We make giving simple.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-
-
-<div class="bg-white py-5">
-    <div class="container py-5">
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-6 order-2 order-lg-1">
-                <h2 class="font-weight-light">Browse for any organization</h2>
-                <p class="font-italic text-muted mb-4">Use the advanced search feature to find the exact organization you are thinking of</p>
-                <a href="{% url 'organizations-search' %}" class="btn btn-light shadow-sm">Give it a Shot!</a>
+    <div class="bg-white py-5">
+        <div class="container py-5">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <h2 class="font-weight-light">Browse for any organization</h2>
+                    <p class="font-italic text-muted mb-4">Use the advanced search feature to find the exact organization you are thinking of</p>
+                    <a href="{% url 'organizations-search' %}" class="btn btn-light shadow-sm">Give it a Shot!</a>
+                </div>
             </div>
+        
+        <div class="row align-items-center">
+            <div class="col-lg-5 px-5 mx-auto"></div>
+                <div class="col-lg-6"><i class="fa fa-leaf fa-2x mb-3 text-primary"></i>
+            <h2 class="font-weight-light">Looking for your favorite organizations?</h2>
+            <p class="font-italic text-muted mb-4">Add a favorite organization by clicking on the "Add to Favorites" button on each organization page.</p><a href="{% url 'organizations-favorites' %}" class="btn btn-light px-5 rounded-pill shadow-sm">View Favorites</a>
         </div>
-    
-    <div class="row align-items-center">
-        <div class="col-lg-5 px-5 mx-auto"></div>
-            <div class="col-lg-6"><i class="fa fa-leaf fa-2x mb-3 text-primary"></i>
-        <h2 class="font-weight-light">Looking for your favorite organizations?</h2>
-        <p class="font-italic text-muted mb-4">Add a favorite organization by clicking on the "Add to Favorites" button on each organization page.</p><a href="{% url 'organizations-favorites' %}" class="btn btn-light px-5 rounded-pill shadow-sm">View Favorites</a>
-      </div>
-    </div>
-    </div>
-</div>
-
-<div class="bg-light py-5">
-    <div class="container py-5">
-        <div class="row mb-4">
-            <div class="col-lg-5">
-                <h2 class="display-4 font-weight-light">Our Mission</h2>
-                <p class="text-muted">To make giving as easy as a few clicks.</p>
-            </div>
+        </div>
         </div>
     </div>
-</div>
+
+    <div class="bg-light py-5">
+        <div class="container py-5">
+            <div class="row mb-4">
+                <div class="col-lg-5">
+                    <h2 class="display-4 font-weight-light">Our Mission</h2>
+                    <p class="text-muted">To make giving as easy as a few clicks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 {% endblock %}
