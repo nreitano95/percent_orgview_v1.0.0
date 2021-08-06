@@ -146,7 +146,7 @@ a, a:link, a:hover, a:active {
 }
 
 @media screen and (max-width: 1000px) {
-
+/* Hide Table Columns on Mobile */
   th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) {
     display: none;
   }
@@ -155,6 +155,7 @@ a, a:link, a:hover, a:active {
     display: none;
   }
 
+  
   #category, #city {
     width: 60%;
   }
