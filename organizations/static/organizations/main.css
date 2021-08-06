@@ -20,7 +20,7 @@ ul {
 }
 
 a, a:link, a:hover, a:active {
-  color:#59a133 ;
+  color:#59a133;
 }
 
 .site-header .navbar-brand {
@@ -89,6 +89,13 @@ a, a:link, a:hover, a:active {
 #donate {
   width: 500px;
 }
+
+#addToFavorites {
+  color: white !important;
+  border-radius: 34px;
+  width: 190px;
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
