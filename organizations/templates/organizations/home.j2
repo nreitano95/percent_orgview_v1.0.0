@@ -12,29 +12,45 @@
   <hr class="my-4">
   {% if user.is_authenticated %}
     {# Search Bar #}
-    <form method="POST" class="search-bar">
-    {% csrf_token %}
+      <div class="container">
+          <form method="POST" class="search-bar">
+              {% csrf_token %}
 
-      <div class="form-group">
-        <label for="submitSearch">Search for Any Organization</label>
-        <input class="form-control" type="text" placeholder="Search for Organization by Keyword..." id="searchTerm" name="searchTerm" value="{{ searchTerm }}">
+              <div class="form-group">
+                  <label for="submitSearch">Search For an Organization</label>
+                  <input class="form-control" type="text" placeholder="Search for Organization by Keyword..." id="searchTerm" name="searchTerm" value="{{ searchTerm }}">
+              </div>
+              <input class="btn btn-primary" type="submit" value='Submit'>
+              <a class="btn btn-light" href="{% url 'organizations-search' %}">Advanced Search</a>
+          </form>
       </div>
-
-      <input class="btn btn-primary" type="submit" value='Submit'>
-
-      <div class="form-group">
-        <br><a class="advanced-search-btn" href="{% url 'organizations-search' %}">Advanced Search</a><br>
-      </div>
-    </form>
   {% else %}
-
       <p>Sign up to save your favorite organizations to view later</p>
       <a class="btn btn-primary" href="{% url 'register' %}" role="button">Get Started</a>
-    {% endif %}
+   {% endif %}
+</div>
+
+<div class="container">
+  {% if user.is_authenticated %}
+  {% else %}
+    {# Search Bar #}
+      <div class="container">
+          <form method="POST" class="search-bar">
+              {% csrf_token %}
+
+              <div class="form-group">
+                  <label for="submitSearch">Search For Any Organization</label>
+                  <input class="form-control" type="text" placeholder="Search for Organization by Keyword..." id="searchTerm" name="searchTerm" value="{{ searchTerm }}">
+              </div>
+              <input class="btn btn-primary" type="submit" value='Submit'>
+              <a class="btn btn-light" href="{% url 'organizations-search' %}">Advanced Search</a>
+          </form>
+      </div>
+   {% endif %}
 </div>
 
 
-<div class="jumbotron">
+<div class="jumbotron" id="featuredOrgs">
   <h1 class="display-6">Featured Organizations</h1>
   <p class="lead">Here are the Top Ten charitable organizations in the U.S.</p>
   <hr class="my-4">

@@ -96,6 +96,10 @@ a, a:link, a:hover, a:active {
   width: 190px;
 }
 
+#featuredOrgs {
+  margin-top: 100px;
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
