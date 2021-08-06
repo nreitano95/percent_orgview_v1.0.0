@@ -167,11 +167,13 @@ def results(request):
         response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + ORG_HUNTER_API_KEY + "&searchTerm=" + searchTerm)
         data = response.json()
         return render(request, 'organizations/results.j2', {'organizations': data['data']})
-        
+
     return render(request, 'organizations/results.j2')
 
 
 def urlify(url):
     """ Returns a properly-formatted URL string given an initial url string """ 
+    if url is None:
+        return
     urlLength = len(url)
     return url[:urlLength].replace(' ', '%20')
