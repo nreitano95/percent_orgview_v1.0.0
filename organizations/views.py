@@ -78,6 +78,14 @@ def organization(request, ein):
 
     organization = response.json()
 
+    # Search Handler
+    if request.method == 'POST':
+        searchTerm = request.POST.get('searchTerm')
+        searchTerm = urlify(searchTerm)
+        response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + ORG_HUNTER_API_KEY + "&searchTerm=" + searchTerm)
+        data = response.json()
+        return render(request, 'organizations/results.j2', {'organizations': data['data']})
+
     return render(request, 'organizations/organization-page.j2', {'organization': organization['data']})
 
 
@@ -151,6 +159,15 @@ def favorites(request):
 
 def results(request):
     """ Renders the results template """
+
+    # Search Handler
+    if request.method == 'POST':
+        searchTerm = request.POST.get('searchTerm')
+        searchTerm = urlify(searchTerm)
+        response = requests.get("http://data.orghunter.com/v1/charitysearch?user_key=" + ORG_HUNTER_API_KEY + "&searchTerm=" + searchTerm)
+        data = response.json()
+        return render(request, 'organizations/results.j2', {'organizations': data['data']})
+        
     return render(request, 'organizations/results.j2')
 
 

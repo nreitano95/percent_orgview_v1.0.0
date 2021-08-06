@@ -8,6 +8,20 @@
 
 {% block content %}
 
+    <div class="container">
+        <form method="POST" class="search-bar">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="submitSearch">Search For Another Organization</label>
+                <input class="form-control" type="text" placeholder="Search for Organization by Keyword..." id="searchTerm" name="searchTerm" value="{{ searchTerm }}">
+            </div>
+            <input class="btn btn-primary" type="submit" value='Submit'>
+            <a class="btn btn-light" href="{% url 'organizations-search' %}">Advanced Search</a>
+        </form>
+        <hr class="my-4">
+    </div>
+
 {% for org in organization %}
     <h1>{{org.charityName}}</h1>
 
@@ -26,5 +40,7 @@
 
     
 {% endfor %}
+    
+
 
 {% endblock content %}
