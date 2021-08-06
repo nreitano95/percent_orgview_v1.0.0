@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'crispy_forms',
     'storages',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
